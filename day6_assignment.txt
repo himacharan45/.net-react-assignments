@@ -1,0 +1,108 @@
+create database dbday6work
+use dbday6work
+
+create table employee(empno int constraint pk_empno primary key,empname varchar(30),salary varchar(20),deptname varchar(30),bossno int)
+create table departmnt(deptname varchar(30) constraint pk_deptname primary key,deptfloor int,deptphone int, mgrid int)
+create table salees(salesno int constraint pk_salesno primary key,saleqty int, itemname varchar(40),
+  deptname varchar(30))
+
+create table employee(empno int constraint pk_empno primary key,empname varchar(30),salary varchar(20),deptname varchar(30) constraint fk_deptname 
+  foreign key references departmnt(deptname) null,bossno int constraint fk_empno foreign key references employee(empno) null)
+
+create table departmnt(deptname varchar(30) constraint pk_deptname primary key,deptfloor int,deptphone int, 
+  mgrid int constraint fk_mgrid foreign key references employee(empno))
+
+create table salees(salesno int constraint pk_salesno primary key,saleqty int, itemname varchar(40) 
+  constraint fk_itemname foreign key references iteem(itemname),
+  deptname varchar(30) constraint fk_deptname foreign key references departmnt(deptname))
+
+create table iteem(itemname varchar(40) constraint pk_itemname primary key, itemtype char, itemcolor varchar(15))
+sp_help employee
+sp_help departmnt
+sp_help salees
+sp_help iteem
+
+insert into employee values(1,'Alice','75000','Management',0)
+insert into employee values(2,'Ned','45000','Marketing',1)
+insert into employee values(3,'Andrew','25000','Marketing',2)
+insert into employee values(4,'Clare','22000','Marketing',2)
+insert into employee values(5,'Todd','38000','Accounting',1)
+insert into employee values(6,'Nancy','22000','Accounting',5)
+insert into employee values(7,'Brier','43000','Purchasing',1)
+insert into employee values(8,'Sarah','56000','Purchasing',7)
+insert into employee values(9,'Sophile','35000','Personnel',1)
+insert into employee values(10,'Sanjay','15000','Navigation',3)
+insert into employee values(11,'Rita','15000','Books',4)
+insert into employee values(12,'Gigi','16000','Clothes',4)
+insert into employee values(13,'Maggie','11000','Clothes',4)
+insert into employee values(14,'Paul','15000','Equipment',3)
+insert into employee values(15,'James','15000','Equipment',3)
+insert into employee values(16,'Pat','15000','Furniture',3)
+insert into employee values(17,'Mark','15000','Recreation',3)
+select * from employee
+
+insert into departmnt values('Management',5,34,1)
+insert into departmnt values('Books',1,81,4)
+insert into departmnt values('Clothes',2,24,4)
+insert into departmnt values('Equipment',3,57,3)
+insert into departmnt values('Furniture',4,14,3)
+insert into departmnt values('Navigation',1,41,3)
+insert into departmnt values('Recreation',2,29,4)
+insert into departmnt values('Accounting',5,35,5)
+insert into departmnt values('Purchasing',5,36,7)
+insert into departmnt values('Personnel',5,37,9)
+insert into departmnt values('Marketing',5,38,2)
+select * from departmnt
+
+insert into salees values(101,2,'Boots-snake proof','Clothes')
+insert into salees values(102,1,'Pith Helmet','Clothes')
+insert into salees values(103,1,'Sextant','Navigation')
+insert into salees values(104,3,'Hat-polat Explorer','Clothes')
+insert into salees values(105,5,'Pith Helmet','Equipment')
+insert into salees values(106,2,'Pocket Knife-Nile','Clothes')
+insert into salees values(107,3,'Pocket Knife-Nile','Recreation')
+insert into salees values(108,1,'Compass','Navigation')
+insert into salees values(109,2,'Geo positioning system','Navigation')
+insert into salees values(110,5,'Map Measure','Navigation')
+insert into salees values(111,1,'Geo positioning system','Books')
+insert into salees values(112,1,'Sextant','Books')
+insert into salees values(113,3,'Pocket Knife-Nile','Books')
+insert into salees values(114,1,'Pocket Knife-Nile','Navigation')
+insert into salees values(115,1,'Pocket Knife-Nile','Equipment')
+insert into salees values(116,1,'Sextant','Clothes')
+insert into salees values(117,1,'"','Equipment')
+insert into salees values(118,1,'"','Recreation')
+insert into salees values(119,1,'"','Furniture')
+insert into salees values(120,1,'Pocket Knife-Nile','"')
+insert into salees values(121,1,'Exploring in 10 easy lessons','Books')
+insert into salees values(122,1,'How to win foreign friends','"')
+insert into salees values(123,1,'Compass','"')
+insert into salees values(124,1,'Pith Helmet','"')
+insert into salees values(125,1,'Elephant Polo stick','Recreation')
+insert into salees values(126,1,'Camel Saddle','Recreation')
+select * from salees
+
+
+insert into iteem values('Pocket Knife-Nile','E','Brown')
+insert into iteem values('Pocket Knife-Avon','E','Brown')
+insert into iteem values('Compass','N','--')
+insert into iteem values('Geo positioning system','N','--')
+insert into iteem values('Elephant Polo stick','R','Bamboo')
+insert into iteem values('Camel Saddle','R','Brown')
+insert into iteem values('Sextant','N','--')
+insert into iteem values('Map Measure','N','--')
+insert into iteem values('Boots-snake proof','C','Green')
+insert into iteem values('Pith Helmet','C','Khaki')
+insert into iteem values('Hat-polar Explorer','C','White')
+insert into iteem values('Exploring in 10 easy Lessons','B','--')
+insert into iteem values('Hammock','F','Khaki')
+insert into iteem values('How to win Foreign Friends','B','--')
+insert into iteem values('Map case','E','Brown')
+insert into iteem values('Safari Chair','F','Khaki')
+insert into iteem values('Safari cooking kit','F','Khaki')
+insert into iteem values('Stetson','C','Black')
+insert into iteem values('Tent-2 person','F','Khaki')
+insert into iteem values('Tent-8 person','F','Khaki')
+select * from iteem
+
+
